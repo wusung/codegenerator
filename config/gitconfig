@@ -1,4 +1,3 @@
-
 [user]
     name = Wusung Peng
     email = wusung.peng@kyerpdata.com
@@ -23,7 +22,7 @@
     co = checkout
     cp = cherry-pick
     br = branch
-    last = log --oneline -20
+    last = log --oneline -30
     sb = branch --verbose
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit -30 
     unstage = reset HEAD --
