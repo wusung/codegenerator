@@ -1,0 +1,7 @@
+if [ -z $1 ]; then 
+    echo "You have to give a repo name"
+else
+    curl -u "wusung" https://api.github.com/user/repos -d \'{\"name\":\"$1\"}\'
+    echo curl -u "wusung" https://api.github.com/user/repos -d \'{\"name\":\"$1\"}\'
+fi
+
