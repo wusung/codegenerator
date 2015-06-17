@@ -1,0 +1,10 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.shared.dependency.tree.DependencyTreeBuilder</role>
+      <implementation>org.apache.maven.shared.dependency.tree.DefaultDependencyTreeBuilder</implementation>
+      <description>Default implementation of &lt;code&gt;DependencyTreeBuilder&lt;/code&gt;.</description>
+      <isolated-realm>false</isolated-realm>
+    </component>
+  </components>
+</component-set>

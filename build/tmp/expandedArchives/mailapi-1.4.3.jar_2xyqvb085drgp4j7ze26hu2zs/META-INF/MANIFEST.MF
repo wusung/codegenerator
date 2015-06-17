@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: 1.6.0_10 (Sun Microsystems Inc.)
+Built-By: java_re
+Build-Jdk: 1.6.0_10
+Extension-Name: javax.mail
+Implementation-Title: javax.mail
+Implementation-Vendor: Sun Microsystems, Inc.
+Implementation-Vendor-Id: com.sun
+Implementation-Version: 1.4.3
+Probe-Provider-XML-File-Names: META-INF/gfprobe-provider.xml
+Specification-Title: JavaMail(TM) API Design Specification
+Specification-Vendor: Sun Microsystems, Inc.
+Specification-Version: 1.4
+Export-Package: javax.mail.search;uses:="javax.mail.internet,javax.mai
+ l";version="1.4",javax.mail.internet;uses:="com.sun.mail.util,javax.m
+ ail,javax.activation,javax.mail.util";version="1.4",javax.mail.util;u
+ ses:="javax.activation,javax.mail.internet";version="1.4",javax.mail;
+ uses:="javax.mail.event,javax.mail.search,javax.activation,com.sun.ma
+ il.util";version="1.4",javax.mail.event;uses:="javax.mail";version="1
+ .4",com.sun.mail.util;uses:="javax.mail,javax.net.ssl,sun.security.ut
+ il,javax.net,javax.security.auth.x500";version="1.4.3",com.sun.mail.u
+ til.logging;uses:="javax.activation,javax.mail.internet,javax.mail.ut
+ il,javax.mail";version="1.4.3",com.sun.mail.handlers;uses:="javax.act
+ ivation,javax.mail.internet,javax.mail";version="1.4.3"
+Tool: Bnd-0.0.357
+Bundle-License: http://www.sun.com/cddl, https://glassfish.dev.java.ne
+ t/public/CDDL+GPL.html
+Bundle-SymbolicName: javax.mail.api
+Bundle-Name: JavaMail API jar
+Bundle-Vendor: Sun Microsystems, Inc.
+Bundle-Version: 1.4.3
+Bnd-LastModified: 1258495703513
+Bundle-ManifestVersion: 2
+Bundle-Description: JavaMail API jar
+Bundle-DocURL: http://www.sun.com
+Import-Package: com.sun.mail.handlers;version="1.4",com.sun.mail.util;
+ version="1.4",com.sun.mail.util.logging;version="1.4",javax.activatio
+ n,javax.mail;version="1.4",javax.mail.event;version="1.4",javax.mail.
+ internet;version="1.4",javax.mail.search;version="1.4",javax.mail.uti
+ l;version="1.4",javax.net,javax.net.ssl,javax.security.auth.x500,java
+ x.security.sasl;resolution:=optional,jcifs.ntlmssp;resolution:=option
+ al,sun.security.util;resolution:=optional
+Originally-Created-By: 1.6.0_10 (Sun Microsystems Inc.)
+

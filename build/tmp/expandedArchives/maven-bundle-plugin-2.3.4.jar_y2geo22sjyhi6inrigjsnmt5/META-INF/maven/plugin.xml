@@ -1,0 +1,1561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <description>Provides a maven plugin that supports creating an OSGi bundle
+  from the contents of the compilation classpath along with its
+  resources and dependencies. Plus a zillion other features.
+  The plugin uses the Bnd tool (http://www.aqute.biz/Code/Bnd)</description>
+  <groupId>org.apache.felix</groupId>
+  <artifactId>maven-bundle-plugin</artifactId>
+  <version>2.3.4</version>
+  <goalPrefix>bundle</goalPrefix>
+  <isolatedRealm>false</isolatedRealm>
+  <inheritedByDefault>true</inheritedByDefault>
+  <mojos>
+    <mojo>
+      <goal>deploy-file</goal>
+      <description>Deploys bundle details to a remote OBR repository (command-line goal)</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>deploy</phase>
+      <implementation>org.apache.felix.obrplugin.ObrDeployFile</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>artifactId</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>ArtifactId of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>bundleUrl</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional public URL where the bundle has been deployed.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle. Defaults to none.</description>
+        </parameter>
+        <parameter>
+          <name>file</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Bundle file, defaults to the artifact in the local Maven repository.</description>
+        </parameter>
+        <parameter>
+          <name>groupId</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>GroupId of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>ignoreLock</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, ignore remote locking.</description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Local OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrXml</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional XML file describing additional requirements and capabilities.</description>
+        </parameter>
+        <parameter>
+          <name>packaging</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Packaging type of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>pomFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Location of an existing POM file.</description>
+        </parameter>
+        <parameter>
+          <name>remoteOBR</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Remote OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>repositoryId</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>Remote repository id, used to lookup authentication settings.</description>
+        </parameter>
+        <parameter>
+          <name>settings</name>
+          <type>org.apache.maven.settings.Settings</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Maven settings.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>url</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>Remote OBR repository URL, where the bundle details are to be uploaded.</description>
+        </parameter>
+        <parameter>
+          <name>version</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Version of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <pomFile implementation="java.io.File">${pomFile}</pomFile>
+        <settings implementation="org.apache.maven.settings.Settings">${settings}</settings>
+        <remoteOBR implementation="java.lang.String">${remoteOBR}</remoteOBR>
+        <artifactId implementation="java.lang.String">${artifactId}</artifactId>
+        <ignoreLock implementation="boolean">${ignoreLock}</ignoreLock>
+        <repositoryId implementation="java.lang.String" default-value="remote-repository">${repositoryId}</repositoryId>
+        <url implementation="java.lang.String">${url}</url>
+        <version implementation="java.lang.String">${version}</version>
+        <groupId implementation="java.lang.String">${groupId}</groupId>
+        <obrXml implementation="java.lang.String">${obrXml}</obrXml>
+        <bundleUrl implementation="java.lang.String">${bundleUrl}</bundleUrl>
+        <packaging implementation="java.lang.String">${packaging}</packaging>
+        <file implementation="java.io.File">${file}</file>
+        <classifier implementation="java.lang.String">${classifier}</classifier>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.manager.WagonManager</role>
+          <field-name>m_wagonManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.factory.ArtifactFactory</role>
+          <field-name>m_factory</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>bundle</goal>
+      <description>Create an OSGi bundle from Maven project</description>
+      <requiresDependencyResolution>test</requiresDependencyResolution>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>package</phase>
+      <implementation>org.apache.felix.bundleplugin.BundlePlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>archive</name>
+          <type>org.apache.maven.archiver.MavenArchiveConfiguration</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The archive configuration to use.</description>
+        </parameter>
+        <parameter>
+          <name>baseDir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the pom</description>
+        </parameter>
+        <parameter>
+          <name>buildDirectory</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated JAR.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle to be installed. For example, &quot;jdk14&quot;.
+Defaults to none which means this is the project&apos;s main bundle.</description>
+        </parameter>
+        <parameter>
+          <name>excludeDependencies</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of artifactIds to exclude from the dependency classpath passed to BND (use &quot;true&quot; to exclude everything)</description>
+        </parameter>
+        <parameter>
+          <name>instructions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+        <parameter>
+          <name>manifestLocation</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Directory where the manifest will be written</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated bundles.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>unpackBundle</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, unpack the bundle contents to the outputDirectory</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <baseDir implementation="java.io.File">${basedir}</baseDir>
+        <buildDirectory implementation="java.lang.String">${project.build.directory}</buildDirectory>
+        <unpackBundle implementation="boolean">${unpackBundle}</unpackBundle>
+        <manifestLocation implementation="java.io.File" default-value="${project.build.outputDirectory}/META-INF">${manifestLocation}</manifestLocation>
+        <excludeDependencies implementation="java.lang.String">${excludeDependencies}</excludeDependencies>
+        <outputDirectory implementation="java.io.File">${project.build.outputDirectory}</outputDirectory>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.archiver.manager.ArchiverManager</role>
+          <field-name>m_archiverManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectHelper</role>
+          <field-name>m_projectHelper</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.handler.manager.ArtifactHandlerManager</role>
+          <field-name>m_artifactHandlerManager</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>deploy</goal>
+      <description>Deploys bundle details to a remote OBR repository (life-cycle goal)</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>deploy</phase>
+      <implementation>org.apache.felix.obrplugin.ObrDeploy</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>altDeploymentRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Alternative deployment repository. Format: id::layout::url</description>
+        </parameter>
+        <parameter>
+          <name>attachedArtifacts</name>
+          <type>java.util.List</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>bundleUrl</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional public URL where the bundle has been deployed.</description>
+        </parameter>
+        <parameter>
+          <name>deploymentRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>false</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>ignoreLock</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, ignore remote locking.</description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrDeploymentRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR specific deployment repository. Format: id::layout::url</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Local OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>prefixUrl</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional public URL prefix for the remote repository.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>remoteOBR</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Remote OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>settings</name>
+          <type>org.apache.maven.settings.Settings</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Maven settings.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <deploymentRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${project.distributionManagementArtifactRepository}</deploymentRepository>
+        <obrDeploymentRepository implementation="java.lang.String">${obrDeploymentRepository}</obrDeploymentRepository>
+        <bundleUrl implementation="java.lang.String">${bundleUrl}</bundleUrl>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <settings implementation="org.apache.maven.settings.Settings">${settings}</settings>
+        <remoteOBR implementation="java.lang.String" default-value="NONE">${remoteOBR}</remoteOBR>
+        <altDeploymentRepository implementation="java.lang.String">${altDeploymentRepository}</altDeploymentRepository>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+        <prefixUrl implementation="java.lang.String">${prefixUrl}</prefixUrl>
+        <ignoreLock implementation="boolean">${ignoreLock}</ignoreLock>
+        <attachedArtifacts implementation="java.util.List">${project.attachedArtifacts}</attachedArtifacts>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.manager.WagonManager</role>
+          <field-name>m_wagonManager</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>ant</goal>
+      <description>Generate Ant script to create the bundle (you should run ant:ant first).</description>
+      <requiresDependencyResolution>test</requiresDependencyResolution>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>package</phase>
+      <implementation>org.apache.felix.bundleplugin.AntPlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>archive</name>
+          <type>org.apache.maven.archiver.MavenArchiveConfiguration</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The archive configuration to use.</description>
+        </parameter>
+        <parameter>
+          <name>baseDir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the pom</description>
+        </parameter>
+        <parameter>
+          <name>buildDirectory</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated JAR.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle to be installed. For example, &quot;jdk14&quot;.
+Defaults to none which means this is the project&apos;s main bundle.</description>
+        </parameter>
+        <parameter>
+          <name>excludeDependencies</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of artifactIds to exclude from the dependency classpath passed to BND (use &quot;true&quot; to exclude everything)</description>
+        </parameter>
+        <parameter>
+          <name>instructions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+        <parameter>
+          <name>manifestLocation</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Directory where the manifest will be written</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated bundles.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>unpackBundle</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, unpack the bundle contents to the outputDirectory</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <baseDir implementation="java.io.File">${basedir}</baseDir>
+        <buildDirectory implementation="java.lang.String">${project.build.directory}</buildDirectory>
+        <unpackBundle implementation="boolean">${unpackBundle}</unpackBundle>
+        <manifestLocation implementation="java.io.File" default-value="${project.build.outputDirectory}/META-INF">${manifestLocation}</manifestLocation>
+        <excludeDependencies implementation="java.lang.String">${excludeDependencies}</excludeDependencies>
+        <outputDirectory implementation="java.io.File">${project.build.outputDirectory}</outputDirectory>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.archiver.manager.ArchiverManager</role>
+          <field-name>m_archiverManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectHelper</role>
+          <field-name>m_projectHelper</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.handler.manager.ArtifactHandlerManager</role>
+          <field-name>m_artifactHandlerManager</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>clean</goal>
+      <description>Clean an OBR repository by finding and removing missing resources.</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>clean</phase>
+      <implementation>org.apache.felix.obrplugin.ObrCleanRepo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR Repository.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>index</goal>
+      <description>Index the content of a maven repository using OBR</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>org.apache.felix.obrplugin.ObrIndex</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>mavenRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The repository to index</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>urlTemplate</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Template for urls</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <urlTemplate implementation="java.lang.String">${urlTemplate}</urlTemplate>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+        <mavenRepository implementation="java.lang.String">${mavenRepository}</mavenRepository>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>install-file</goal>
+      <description>Installs bundle details in the local OBR repository (command-line goal)</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>install</phase>
+      <implementation>org.apache.felix.obrplugin.ObrInstallFile</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>artifactId</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>ArtifactId of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle. Defaults to none.</description>
+        </parameter>
+        <parameter>
+          <name>file</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Bundle file, defaults to the artifact in the local Maven repository.</description>
+        </parameter>
+        <parameter>
+          <name>groupId</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>GroupId of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrXml</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional XML file describing additional requirements and capabilities.</description>
+        </parameter>
+        <parameter>
+          <name>packaging</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Packaging type of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+        <parameter>
+          <name>pomFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Location of an existing POM file.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>version</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Version of the bundle. Retrieved from POM file if specified.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <groupId implementation="java.lang.String">${groupId}</groupId>
+        <obrXml implementation="java.lang.String">${obrXml}</obrXml>
+        <pomFile implementation="java.io.File">${pomFile}</pomFile>
+        <packaging implementation="java.lang.String">${packaging}</packaging>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <file implementation="java.io.File">${file}</file>
+        <classifier implementation="java.lang.String">${classifier}</classifier>
+        <artifactId implementation="java.lang.String">${artifactId}</artifactId>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+        <version implementation="java.lang.String">${version}</version>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.factory.ArtifactFactory</role>
+          <field-name>m_factory</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>remote-clean</goal>
+      <description>Clean a remote repository file.
+It just looks for every resources and check that pointed file exists.</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>clean</phase>
+      <implementation>org.apache.felix.obrplugin.ObrRemoteClean</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>altDeploymentRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Alternative deployment repository. Format: id::layout::url</description>
+        </parameter>
+        <parameter>
+          <name>deploymentRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>false</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>ignoreLock</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, ignore remote locking.</description>
+        </parameter>
+        <parameter>
+          <name>obrDeploymentRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR specific deployment repository. Format: id::layout::url</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Local OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>prefixUrl</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Optional public URL prefix for the remote repository.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>remoteOBR</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Remote OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>settings</name>
+          <type>org.apache.maven.settings.Settings</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Maven settings.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <deploymentRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${project.distributionManagementArtifactRepository}</deploymentRepository>
+        <obrDeploymentRepository implementation="java.lang.String">${obrDeploymentRepository}</obrDeploymentRepository>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <settings implementation="org.apache.maven.settings.Settings">${settings}</settings>
+        <remoteOBR implementation="java.lang.String" default-value="NONE">${remoteOBR}</remoteOBR>
+        <altDeploymentRepository implementation="java.lang.String">${altDeploymentRepository}</altDeploymentRepository>
+        <prefixUrl implementation="java.lang.String">${prefixUrl}</prefixUrl>
+        <ignoreLock implementation="boolean">${ignoreLock}</ignoreLock>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.manager.WagonManager</role>
+          <field-name>m_wagonManager</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>bundleall</goal>
+      <description>Create OSGi bundles from all dependencies in the Maven project</description>
+      <requiresDependencyResolution>test</requiresDependencyResolution>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>package</phase>
+      <implementation>org.apache.felix.bundleplugin.BundleAllPlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>archive</name>
+          <type>org.apache.maven.archiver.MavenArchiveConfiguration</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The archive configuration to use.</description>
+        </parameter>
+        <parameter>
+          <name>baseDir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the pom</description>
+        </parameter>
+        <parameter>
+          <name>buildDirectory</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated JAR.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle to be installed. For example, &quot;jdk14&quot;.
+Defaults to none which means this is the project&apos;s main bundle.</description>
+        </parameter>
+        <parameter>
+          <name>depth</name>
+          <type>int</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Process up to some depth</description>
+        </parameter>
+        <parameter>
+          <name>excludeDependencies</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of artifactIds to exclude from the dependency classpath passed to BND (use &quot;true&quot; to exclude everything)</description>
+        </parameter>
+        <parameter>
+          <name>ignoreMissingArtifacts</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Ignore missing artifacts that are not required by current project but are required by the
+transitive dependencies.</description>
+        </parameter>
+        <parameter>
+          <name>instructions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local repository.</description>
+        </parameter>
+        <parameter>
+          <name>manifestLocation</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Directory where the manifest will be written</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated bundles.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>remoteRepositories</name>
+          <type>java.util.List</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Remote repositories.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>unpackBundle</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, unpack the bundle contents to the outputDirectory</description>
+        </parameter>
+        <parameter>
+          <name>wrapImportPackage</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Import-Package to be used when wrapping dependencies.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <wrapImportPackage implementation="java.lang.String" default-value="*">${wrapImportPackage}</wrapImportPackage>
+        <remoteRepositories implementation="java.util.List">${project.remoteArtifactRepositories}</remoteRepositories>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <baseDir implementation="java.io.File">${basedir}</baseDir>
+        <buildDirectory implementation="java.lang.String">${project.build.directory}</buildDirectory>
+        <unpackBundle implementation="boolean">${unpackBundle}</unpackBundle>
+        <manifestLocation implementation="java.io.File" default-value="${project.build.outputDirectory}/META-INF">${manifestLocation}</manifestLocation>
+        <excludeDependencies implementation="java.lang.String">${excludeDependencies}</excludeDependencies>
+        <outputDirectory implementation="java.io.File">${project.build.outputDirectory}</outputDirectory>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.resolver.ArtifactResolver</role>
+          <field-name>m_artifactResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.codehaus.plexus.archiver.manager.ArchiverManager</role>
+          <field-name>m_archiverManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.metadata.ArtifactMetadataSource</role>
+          <field-name>m_artifactMetadataSource</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectBuilder</role>
+          <field-name>m_mavenProjectBuilder</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.resolver.ArtifactCollector</role>
+          <field-name>m_collector</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.factory.ArtifactFactory</role>
+          <field-name>m_factory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectHelper</role>
+          <field-name>m_projectHelper</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.handler.manager.ArtifactHandlerManager</role>
+          <field-name>m_artifactHandlerManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.shared.dependency.tree.DependencyTreeBuilder</role>
+          <field-name>m_dependencyTreeBuilder</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>cleanVersions</goal>
+      <description></description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>org.apache.felix.bundleplugin.VersionCleanerPlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>versions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>install</goal>
+      <description>Installs bundle details in the local OBR repository (life-cycle goal)</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>install</phase>
+      <implementation>org.apache.felix.obrplugin.ObrInstall</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>attachedArtifacts</name>
+          <type>java.util.List</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description></description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local Repository.</description>
+        </parameter>
+        <parameter>
+          <name>obrRepository</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>OBR Repository.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <obrRepository implementation="java.lang.String">${obrRepository}</obrRepository>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+        <attachedArtifacts implementation="java.util.List">${project.attachedArtifacts}</attachedArtifacts>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>manifest</goal>
+      <description>Generate an OSGi manifest for this project</description>
+      <requiresDependencyResolution>test</requiresDependencyResolution>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>process-classes</phase>
+      <implementation>org.apache.felix.bundleplugin.ManifestPlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>archive</name>
+          <type>org.apache.maven.archiver.MavenArchiveConfiguration</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The archive configuration to use.</description>
+        </parameter>
+        <parameter>
+          <name>baseDir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the pom</description>
+        </parameter>
+        <parameter>
+          <name>buildDirectory</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated JAR.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle to be installed. For example, &quot;jdk14&quot;.
+Defaults to none which means this is the project&apos;s main bundle.</description>
+        </parameter>
+        <parameter>
+          <name>excludeDependencies</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of artifactIds to exclude from the dependency classpath passed to BND (use &quot;true&quot; to exclude everything)</description>
+        </parameter>
+        <parameter>
+          <name>instructions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+        <parameter>
+          <name>manifestLocation</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Directory where the manifest will be written</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated bundles.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>unpackBundle</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, unpack the bundle contents to the outputDirectory</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <baseDir implementation="java.io.File">${basedir}</baseDir>
+        <buildDirectory implementation="java.lang.String">${project.build.directory}</buildDirectory>
+        <unpackBundle implementation="boolean">${unpackBundle}</unpackBundle>
+        <manifestLocation implementation="java.io.File" default-value="${project.build.outputDirectory}/META-INF">${manifestLocation}</manifestLocation>
+        <excludeDependencies implementation="java.lang.String">${excludeDependencies}</excludeDependencies>
+        <outputDirectory implementation="java.io.File">${project.build.outputDirectory}</outputDirectory>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.archiver.manager.ArchiverManager</role>
+          <field-name>m_archiverManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectHelper</role>
+          <field-name>m_projectHelper</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.handler.manager.ArtifactHandlerManager</role>
+          <field-name>m_artifactHandlerManager</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+    <mojo>
+      <goal>wrap</goal>
+      <description></description>
+      <requiresDependencyResolution>test</requiresDependencyResolution>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <phase>package</phase>
+      <implementation>org.apache.felix.bundleplugin.WrapPlugin</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <parameters>
+        <parameter>
+          <name>archive</name>
+          <type>org.apache.maven.archiver.MavenArchiveConfiguration</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The archive configuration to use.</description>
+        </parameter>
+        <parameter>
+          <name>baseDir</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the pom</description>
+        </parameter>
+        <parameter>
+          <name>buildDirectory</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated JAR.</description>
+        </parameter>
+        <parameter>
+          <name>classifier</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Classifier type of the bundle to be installed. For example, &quot;jdk14&quot;.
+Defaults to none which means this is the project&apos;s main bundle.</description>
+        </parameter>
+        <parameter>
+          <name>depth</name>
+          <type>int</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Process up to some depth</description>
+        </parameter>
+        <parameter>
+          <name>excludeDependencies</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Comma separated list of artifactIds to exclude from the dependency classpath passed to BND (use &quot;true&quot; to exclude everything)</description>
+        </parameter>
+        <parameter>
+          <name>ignoreMissingArtifacts</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Ignore missing artifacts that are not required by current project but are required by the
+transitive dependencies.</description>
+        </parameter>
+        <parameter>
+          <name>instructions</name>
+          <type>java.util.Map</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>The BND instructions for the bundle.</description>
+        </parameter>
+        <parameter>
+          <name>localRepository</name>
+          <type>org.apache.maven.artifact.repository.ArtifactRepository</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Local repository.</description>
+        </parameter>
+        <parameter>
+          <name>manifestLocation</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Directory where the manifest will be written</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>The directory for the generated bundles.</description>
+        </parameter>
+        <parameter>
+          <name>project</name>
+          <type>org.apache.maven.project.MavenProject</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>The Maven project.</description>
+        </parameter>
+        <parameter>
+          <name>remoteRepositories</name>
+          <type>java.util.List</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Remote repositories.</description>
+        </parameter>
+        <parameter>
+          <name>supportedProjectTypes</name>
+          <type>java.util.List</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Project types which this plugin supports.</description>
+        </parameter>
+        <parameter>
+          <name>unpackBundle</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>When true, unpack the bundle contents to the outputDirectory</description>
+        </parameter>
+        <parameter>
+          <name>wrapImportPackage</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Import-Package to be used when wrapping dependencies.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <wrapImportPackage implementation="java.lang.String" default-value="*">${wrapImportPackage}</wrapImportPackage>
+        <remoteRepositories implementation="java.util.List">${project.remoteArtifactRepositories}</remoteRepositories>
+        <project implementation="org.apache.maven.project.MavenProject">${project}</project>
+        <baseDir implementation="java.io.File">${basedir}</baseDir>
+        <buildDirectory implementation="java.lang.String">${project.build.directory}</buildDirectory>
+        <unpackBundle implementation="boolean">${unpackBundle}</unpackBundle>
+        <manifestLocation implementation="java.io.File" default-value="${project.build.outputDirectory}/META-INF">${manifestLocation}</manifestLocation>
+        <excludeDependencies implementation="java.lang.String">${excludeDependencies}</excludeDependencies>
+        <outputDirectory implementation="java.io.File">${project.build.outputDirectory}</outputDirectory>
+        <localRepository implementation="org.apache.maven.artifact.repository.ArtifactRepository">${localRepository}</localRepository>
+      </configuration>
+      <requirements>
+        <requirement>
+          <role>org.apache.maven.artifact.resolver.ArtifactResolver</role>
+          <field-name>m_artifactResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.codehaus.plexus.archiver.manager.ArchiverManager</role>
+          <field-name>m_archiverManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.metadata.ArtifactMetadataSource</role>
+          <field-name>m_artifactMetadataSource</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectBuilder</role>
+          <field-name>m_mavenProjectBuilder</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.resolver.ArtifactCollector</role>
+          <field-name>m_collector</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.factory.ArtifactFactory</role>
+          <field-name>m_factory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.project.MavenProjectHelper</role>
+          <field-name>m_projectHelper</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.artifact.handler.manager.ArtifactHandlerManager</role>
+          <field-name>m_artifactHandlerManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.apache.maven.shared.dependency.tree.DependencyTreeBuilder</role>
+          <field-name>m_dependencyTreeBuilder</field-name>
+        </requirement>
+      </requirements>
+    </mojo>
+  </mojos>
+  <dependencies>
+    <dependency>
+      <groupId>biz.aQute</groupId>
+      <artifactId>bndlib</artifactId>
+      <type>jar</type>
+      <version>1.15.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.kxml</groupId>
+      <artifactId>kxml2</artifactId>
+      <type>jar</type>
+      <version>2.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>xmlpull</groupId>
+      <artifactId>xmlpull</artifactId>
+      <type>jar</type>
+      <version>1.1.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.bundlerepository</artifactId>
+      <type>jar</type>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <type>jar</type>
+      <version>4.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <type>jar</type>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.osgi.service.obr</artifactId>
+      <type>jar</type>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-profile</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-registry</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-archiver</artifactId>
+      <type>jar</type>
+      <version>2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact-manager</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-repository-metadata</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-settings</artifactId>
+      <type>jar</type>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-dependency-tree</artifactId>
+      <type>jar</type>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-provider-api</artifactId>
+      <type>jar</type>
+      <version>1.0-beta-2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <type>jar</type>
+      <version>1.0-alpha-9-stable-1</version>
+    </dependency>
+    <dependency>
+      <groupId>classworlds</groupId>
+      <artifactId>classworlds</artifactId>
+      <type>jar</type>
+      <version>1.1-alpha-2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+      <type>jar</type>
+      <version>1.0-alpha-7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <type>jar</type>
+      <version>1.4.7</version>
+    </dependency>
+  </dependencies>
+</plugin>

@@ -11,4 +11,9 @@ public class MyPythonCodeGenerator extends PythonClientCodegen {
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         supportingFiles.add(new SupportingFile("api-doc.mustache", apiPackage, "api-doc.json"));
     }
+
+    private static void test() {
+        MyPythonCodeGenerator g =
+            new com.kyper.MyPythonCodeGenerator();
+    }
 }

@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Export-Package: com.github.fge.uritemplate;version="0.9";uses:="com.gi
+ thub.fge.msgsimple.bundle,com.github.fge.msgsimple.load,com.github.fg
+ e.uritemplate.vars",com.github.fge.uritemplate.expression;version="0.
+ 9";uses:="com.github.fge.uritemplate,com.github.fge.uritemplate.vars,
+ com.github.fge.uritemplate.vars.specs",com.github.fge.uritemplate.par
+ se;version="0.9";uses:="com.github.fge.uritemplate,com.github.fge.uri
+ template.expression",com.github.fge.uritemplate.render;version="0.9";
+ uses:="com.github.fge.uritemplate,com.github.fge.uritemplate.expressi
+ on,com.github.fge.uritemplate.vars.specs,com.github.fge.uritemplate.v
+ ars.values,com.google.common.base",com.github.fge.uritemplate.vars;ve
+ rsion="0.9";uses:="com.github.fge,com.github.fge.uritemplate.vars.val
+ ues",com.github.fge.uritemplate.vars.specs;version="0.9",com.github.f
+ ge.uritemplate.vars.values;version="0.9";uses:="com.github.fge.msgsim
+ ple.bundle,com.github.fge.uritemplate.expression,com.github.fge.urite
+ mplate.render"
+Bundle-Version: 0.9
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: uri-template
+Bnd-LastModified: 1397434042000
+Created-By: 1.6.0_45 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.github.fge.uri-template
+Import-Package: com.github.fge;version="[1.2,2)",com.github.fge.msgsim
+ ple.bundle;version="[1.1,2)",com.github.fge.msgsimple.load;version="[
+ 1.1,2)",com.google.common.base;version="[16.0,17)",com.google.common.
+ collect;version="[16.0,17)",com.google.common.escape;version="[16.0,1
+ 7)",com.google.common.net;version="[16.0,17)"
+

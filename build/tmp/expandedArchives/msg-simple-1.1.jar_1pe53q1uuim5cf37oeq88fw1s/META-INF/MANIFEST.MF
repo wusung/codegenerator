@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: com.github.fge.msgsimple;version="1.1",com.github.fge.
+ msgsimple.bundle;version="1.1";uses:="com.github.fge,com.github.fge.m
+ sgsimple.provider,com.github.fge.msgsimple.source",com.github.fge.msg
+ simple.load;version="1.1";uses:="com.github.fge.msgsimple.bundle",com
+ .github.fge.msgsimple.locale;version="1.1",com.github.fge.msgsimple.p
+ rovider;version="1.1";uses:="com.github.fge.msgsimple.source",com.git
+ hub.fge.msgsimple.source;version="1.1"
+Bundle-Version: 1.1
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: msg-simple
+Bnd-LastModified: 1397340971000
+Created-By: 1.6.0_45 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.github.fge.msg-simple
+Import-Package: com.github.fge;version="[1.2,2)",javax.annotation
+

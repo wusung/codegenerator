@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Created-By: 1.4.2_12 (Apple Computer, Inc.)
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Import-Package: org.osgi.framework;version=1.3,org.osgi.service.packag
+ eadmin;version=1.2,org.osgi.service.startlevel;version=1.0,org.osgi.s
+ ervice.url;version=1.0
+Include-Resource: src/main/resources
+Bnd-LastModified: 1184371018598
+Export-Package: org.osgi.service.packageadmin;uses:=org.osgi.framework
+ ;version=1.2,org.osgi.service.url;version=1.0,org.osgi.service.startl
+ evel;uses:=org.osgi.framework;version=1.0,org.osgi.service.permission
+ admin;version=1.2,org.osgi.framework;version=1.3,org.osgi.service.con
+ dpermadmin;uses:="org.osgi.service.permissionadmin,org.osgi.framework
+ ";version=1.0
+Bundle-Version: 4
+Ignore-Package: org.osgi.service.permissionadmin,org.osgi.service.cond
+ permadmin
+Bundle-Copyright: Copyright (c) OSGi Alliance (2000, 2006). All Rights
+  Reserved.
+Bundle-Name: OSGi R4 Core Bundle
+Bundle-Description: OSGi Service Platform Release 4 Core Interfaces an
+ d Classes.
+Bundle-DocURL: http://www.osgi.org/
+Bundle-Vendor: OSGi Alliance
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.osgi.core
+Tool: Bnd-0.0.160
+Bundle-Category: osgi
+

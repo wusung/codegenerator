@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: mark
+Build-Jdk: 1.6.0_07
+Specification-Title: Maven Dependency Tree
+Specification-Version: 1.2
+Specification-Vendor: The Apache Software Foundation
+Implementation-Title: Maven Dependency Tree
+Implementation-Version: 1.2
+Implementation-Vendor-Id: org.apache.maven.shared
+Implementation-Vendor: The Apache Software Foundation
+

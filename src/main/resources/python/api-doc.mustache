@@ -1,0 +1,12 @@
+{
+    {{#operations}}
+        {{#operation}}
+    "name":"{{nickname}}",
+    "description":"{{description}}",
+    "params": [{{#allParams}} {"name":{{paramName}}, {"type": ["{{dataType}}"]}, {"default":{{#defaultValue}}{{/defaultValue}} }, "description":"{{description}} {{^optional}}(required){{/optional}}{{#optional}}(optional){{/optional}}" }, {{/allParams}}],
+    "class_method": true,
+    "ret": {"type":"{{returnType}}", "description":"{{summary}}"},
+    "prefix": "kyper.data"
+        {{/operation}}
+    {{/operations}}
+}

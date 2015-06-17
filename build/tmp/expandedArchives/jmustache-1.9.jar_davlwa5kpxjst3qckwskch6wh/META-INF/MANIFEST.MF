@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.7.0_45
+Built-By: mdb
+Bundle-ActivationPolicy: lazy
+Bundle-Description: A Java implementation of the Mustache templating lan
+ guage.
+Bundle-License: http://www.opensource.org/licenses/bsd-license.php
+Bundle-ManifestVersion: 2
+Bundle-Name: jmustache
+Bundle-SymbolicName: com.samskivert.jmustache
+Bundle-Version: 1.9.0
+Export-Package: com.samskivert.mustache;version="1.9.0"

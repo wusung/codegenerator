@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Export-Package: com.github.fge.jackson;version="1.6";uses:="com.faster
+ xml.jackson.databind,com.fasterxml.jackson.databind.node,com.google.c
+ ommon.base",com.github.fge.jackson.jsonpointer;version="1.6";uses:="c
+ om.fasterxml.jackson.core,com.fasterxml.jackson.databind,com.fasterxm
+ l.jackson.databind.annotation,com.fasterxml.jackson.databind.ser.std,
+ com.github.fge.msgsimple.bundle,com.github.fge.msgsimple.load"
+Bundle-Version: 1.6
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: jackson-coreutils
+Bnd-LastModified: 1397413793000
+Created-By: 1.6.0_45 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.github.fge.jackson-coreutils
+Import-Package: com.fasterxml.jackson.core;version="[2.2,3)",com.faste
+ rxml.jackson.databind,com.fasterxml.jackson.databind.annotation,com.f
+ asterxml.jackson.databind.node,com.fasterxml.jackson.databind.ser.std
+ ,com.github.fge;version="[1.2,2)",com.github.fge.msgsimple.bundle;ver
+ sion="[1.1,2)",com.github.fge.msgsimple.load;version="[1.1,2)",com.go
+ ogle.common.base;version="[16.0,17)",com.google.common.collect;versio
+ n="[16.0,17)",com.google.common.io;version="[16.0,17)",javax.annotati
+ on
+

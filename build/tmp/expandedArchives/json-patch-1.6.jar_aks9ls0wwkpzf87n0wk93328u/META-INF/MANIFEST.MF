@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Export-Package: com.github.fge.jsonpatch;version="1.6";uses:="com.fast
+ erxml.jackson.annotation,com.fasterxml.jackson.core,com.fasterxml.jac
+ kson.databind,com.fasterxml.jackson.databind.annotation,com.fasterxml
+ .jackson.databind.jsontype,com.fasterxml.jackson.databind.ser.std,com
+ .github.fge.jackson.jsonpointer,com.github.fge.msgsimple.bundle,com.g
+ ithub.fge.msgsimple.load",com.github.fge.jsonpatch.diff;version="1.6"
+ ;uses:="com.fasterxml.jackson.databind",com.github.fge.jsonpatch.merg
+ epatch;version="1.6";uses:="com.fasterxml.jackson.core,com.fasterxml.
+ jackson.databind,com.fasterxml.jackson.databind.annotation,com.faster
+ xml.jackson.databind.jsontype,com.fasterxml.jackson.databind.node,com
+ .github.fge.jsonpatch,com.github.fge.msgsimple.bundle"
+Bundle-Version: 1.6
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: json-patch
+Bnd-LastModified: 1397478487000
+Created-By: 1.6.0_45 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.github.fge.json-patch
+Import-Package: com.fasterxml.jackson.annotation;version="[2.2,3)",com
+ .fasterxml.jackson.core;version="[2.2,3)",com.fasterxml.jackson.datab
+ ind,com.fasterxml.jackson.databind.annotation,com.fasterxml.jackson.d
+ atabind.jsontype,com.fasterxml.jackson.databind.node,com.fasterxml.ja
+ ckson.databind.ser.std,com.github.fge.jackson;version="[1.6,2)",com.g
+ ithub.fge.jackson.jsonpointer;version="[1.6,2)",com.github.fge.msgsim
+ ple.bundle;version="[1.1,2)",com.github.fge.msgsimple.load;version="[
+ 1.1,2)",com.google.common.base;version="[16.0,17)",com.google.common.
+ collect;version="[16.0,17)"
+

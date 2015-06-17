@@ -1,0 +1,42 @@
+Manifest-Version: 1.0
+Export-Package: aQute.bnd.annotation,aQute.bnd.annotation.component,aQ
+ ute.lib.osgi;uses:="aQute.bnd.annotation,aQute.libg.version,aQute.bnd
+ .service,aQute.libg.reporter,aQute.libg.sed",aQute.bnd.build;uses:="a
+ Qute.lib.osgi,aQute.libg.reporter,aQute.bnd.service,aQute.bnd.service
+ .action,aQute.libg.sed,javax.naming",aQute.bnd.service;uses:="aQute.l
+ ib.osgi,aQute.bnd.build,aQute.libg.reporter,aQute.libg.version",aQute
+ .bnd.service.action;uses:="aQute.bnd.build",aQute.libg.reporter,aQute
+ .libg.version,aQute.libg.sed
+Private-Package: aQute.lib.filter,aQute.bnd.make.component,aQute.lib.i
+ o,aQute.bnd.help,aQute.libg.command,aQute.lib.collections,aQute.lib.i
+ ndex,aQute.libg.header,aQute.lib.jardiff,aQute.libg.qtokens,aQute.bnd
+ .signing,aQute.lib.deployer,aQute.lib.osgi.eclipse,aQute.bnd.make.cal
+ ltree,aQute.bnd.repo.eclipse,aQute.lib.base64,aQute.lib.putjar,aQute.
+ bnd.settings,aQute.libg.generics,.,aQute.libg.fileiterator,aQute.bnd.
+ make.coverage,aQute.lib.tag,aQute.lib.spring,aQute.bnd.maven,aQute.bn
+ d.make
+Conditional-Package: aQute.libg.*, aQute.lib.*, aQute.service.*
+Tool: Bnd-${Bundle-Version}
+Bundle-Name: aQute Bundle Tool Library
+Created-By: 1.6.0_22 (Apple Inc.)
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Copyright: All files contained in this JAR are licensed under t
+ he Apache 2.0 license, unless noted differently in their source (see 
+ swing2swt).
+Bundle-Vendor: aQute SARL http://www.aQute.biz
+Bundle-Version: 1.15.0
+Bnd-LastModified: 1288185145957
+Bundle-ManifestVersion: 2
+Bundle-Description: A library for manipulating and generating bundles
+Bundle-License: http://www.opensource.org/licenses/apache2.0.php; desc
+ ription="All files contained in this JAR are licensed under the Apach
+ e 2.0 license, unless noted differently in their source (see swing2sw
+ t)."; link=LICENSE
+Bundle-DocURL: http://www.aQute.biz/Code/Bnd
+Import-Package: javax.naming,javax.xml.namespace,javax.xml.parsers,jav
+ ax.xml.transform,javax.xml.transform.stream,javax.xml.xpath,org.w3c.d
+ om,org.xml.sax
+Include-Resource: LICENSE
+Bundle-SymbolicName: biz.aQute.bndlib
+Bundle-SCM: git://github.com/bnd/bnd.git
+
