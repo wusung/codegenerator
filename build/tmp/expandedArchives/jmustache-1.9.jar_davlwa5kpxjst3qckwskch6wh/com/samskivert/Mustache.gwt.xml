@@ -1,5 +1,0 @@
-<!-- defines our GWT module -->
-<module>
-  <source path="mustache"/>
-  <super-source path="gwt"/>
-</module>
