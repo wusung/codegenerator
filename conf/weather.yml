@@ -1,0 +1,149 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Weather Data API
+  description: Move your app forward with the Associated Press API
+  version: "0.0.1"
+  termsOfService: "weather"
+# the domain of the service
+host: weather.kyper.co
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v0
+produces:
+  - application/json
+paths:
+  /geo_api:
+    get:
+      operationId: "geo_api"
+      summary: Search GEO information by address
+      description: |
+        Search geo infomration by address. Optionally refine search by category, source, data range, etc.
+      parameters:
+        - name: address
+          in: query
+          description: The keyword or keywords to search for
+          required: true
+          type: string
+          format: String
+      responses:
+        200:
+          description: The pandas.DataFrame of news
+          schema:
+            $ref: '#/definitions/DataFrame'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /weather_station:
+    get:
+      operationId: "weather_station"
+      summary: Search weather data by station Id
+      description: |
+        Search weather data by station Id and date range.
+      parameters:
+        - name: station
+          in: query
+          description: station id to search for
+          required: true
+          type: string
+          format: String
+        - name: start_dt
+          in: query
+          description: The optional start date for the query
+          required: true
+          type: string
+          format: String
+        - name: end_dt
+          in: query
+          description: The optional end date for the query
+          required: true
+          type: string
+          format: String
+        - name: fields
+          in: query
+          description: The optional end date for the query
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: The pandas.DataFrame of weather data
+          schema:
+            $ref: '#/definitions/Response'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /weather_geo:
+    get:
+      operationId: "weather_geo"
+      summary: Search GEO information by address
+      description: |
+        Search news by keywords. Optionally refine search by category, source, data range, etc.
+      parameters:
+        - name: station
+          in: query
+          description: station id to search for
+          required: true
+          type: string
+          format: String
+        - name: start_dt
+          in: query
+          description: The optional start date for the query
+          required: true
+          type: string
+          format: String
+        - name: end_dt
+          in: query
+          description: The optional end date for the query
+          required: true
+          type: string
+          format: String
+        - name: fields
+          in: query
+          description: The optional end date for the query
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: The pandas.DataFrame of news
+          schema:
+            $ref: '#/definitions/Response'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'            
+definitions:
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  DataFrame:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  Response:
+    properties:
+      code:
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/DataFrame'
+  

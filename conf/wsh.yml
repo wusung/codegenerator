@@ -1,0 +1,217 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Wall Street Horizon APIs
+  description: wsh
+  version: "0.0.1"
+  termsOfService: "wsh"
+  contact:
+    name: "developer"
+    email: "developer@kyper.com"
+    url: "http://kyperdata.com"
+# the domain of the service
+host: wsh.kyper.co
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v0
+produces:
+  - application/json
+paths:
+  /meetings:
+    get:
+      operationId: "meetings"
+      summary: Search shareholder meetings of stock symbol ticker
+      description: |
+        return shareholder meetings of stock symbol ticker. ticker can be a single ticker string or a list of ticker             strings. If start_date is given, return meeting start after start_date. If end_date is given, return meetings            start before end_date.
+      parameters:
+        - name: ticker
+          in: query
+          description: ticker can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+        - name: start_dt
+          in: query
+          description: If start_date is given, return meeting start after start_date.
+          required: false
+          type: string
+        - name: end_dt
+          in: query
+          description: If end_date is given, return meetings start before end_date.
+          required: false
+          type: string
+      responses:
+        200:
+          description: return shareholder meetings of stock symbol ticker.
+          schema:
+            $ref: '#/definitions/DataFrame'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /conference_call:
+    get:
+      operationId: "conference_call"
+      summary: Search conference call history of stock symbol ticker.
+      description: |
+        return conference call history of stock symbol ticker. ticker can be a single ticker string or a list of ticker strings. If start_datetime is given, return meeting start after start_datetime. If end_datetime is given, return meetings start before end_datetime.
+      parameters:
+        - name: ticker
+          in: query
+          description: ticker can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+        - name: start_dt
+          in: query
+          description: If start_date is given, return meeting start after start_date.
+          required: false
+          type: string
+        - name: end_dt
+          in: query
+          description: If end_date is given, return meetings start before end_date.
+          required: false
+          type: string
+      responses:
+        200:
+          description: return conference call history of stock symbol ticker.
+          schema:
+            $ref: '#/definitions/DataFrame'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /earnings_date:
+    get:
+      operationId: "earnings_date"
+      summary: return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      description: |
+        return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      parameters:
+        - name: tickers
+          in: query
+          description: ticker can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+          schema:
+            $ref: '#/definitions/DataFrame'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /datebreak:
+    get:
+      operationId: "datebreak"
+      summary: return earning date history of ticker.
+      description: |
+        return earning date history of ticker.  tickers can be a single ticker string or a list of ticker strings.
+      parameters:
+        - name: tickers
+          in: query
+          description: tickers can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: return earning date history of ticker. ticker can be a single ticker string or a list of ticker
+          
+  /dividend:
+    get:
+      operationId: "dividend"
+      summary: return earning date history of ticker.
+      description: |
+        return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      parameters:
+        - name: tickers
+          in: query
+          description: ticker can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: return earning date history of ticker. ticker can be a single ticker string or a list of ticker
+          
+  /eps:
+    get:
+      operationId: "eps"
+      summary: return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      description: |
+        return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      parameters:
+        - name: tickers
+          in: query
+          description: tickers can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: return earning date history of ticker. ticker can be a single ticker string or a list of ticker
+          
+  /split:
+    get:
+      operationId: "split"
+      summary: return earning date history of ticker.
+      description: |
+        return earning date history of ticker. ticker can be a single ticker string or a list of ticker strings.
+      parameters:
+        - name: tickers
+          in: query
+          description: tickers can be a single ticker string or a list of ticker strings.
+          required: true
+          type: array
+          items: {
+              type: string
+            }
+      responses:
+        200:
+          description: return earning date history of ticker. ticker can be a single ticker string or a list of ticker          
+definitions:
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  DataFrame:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  Response:
+    properties:
+      code:
+        type: string
+      data:
+        items:
+          $ref: '#/definitions/DataFrame'
+
