@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
 SCRIPT="$0"
 
@@ -17,15 +17,19 @@ if [ ! -d "${APP_DIR}" ]; then
   APP_DIR=`cd "${APP_DIR}"; pwd`
 fi
 
-executable="./build/libs/codegenerator-1.0-SNAPSHOT.jar"
+echo $APP_DIR
+executable="${APP_DIR}/libs/codegenerator-1.0-SNAPSHOT.jar"
+executable="${APP_DIR}/build/libs/codegenerator-1.0-SNAPSHOT.jar"
 
 if [ ! -f "$executable" ]
 then
   mvn clean package
 fi
 
-# if you've executed sbt assembly previously it will use that instead.
-export JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=256M -Xmx1024M -DloggerPath=conf/log4j.properties"
-ags="$@ generate -t src/main/resources/python -i src/test/resources/2_0/petstore.json -l python -o samples/client/petstore/python"
+LIB_PATH=${APP_DIR}/build/libs/*:../build/libs/*:${APP_DIR}/libs/*
 
-java $JAVA_OPTS -jar $executable $ags
+# if you've executed sbt assembly previously it will use that instead.
+export JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=256M -Xmx1024M -DloggerPath=conf/log4j.properties -cp ${LIB_PATH}"
+ags="$@ generate -t template -i ${APP_DIR}/conf/associated_press.json -l com.kyper.MyPythonCodeGenerator -o ${APP_DIR}/output"
+
+java $JAVA_OPTS -jar $executable $ags       
