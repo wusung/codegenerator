@@ -3,7 +3,7 @@
 swagger: '2.0'
 info:
   title: Weather Data API
-  description: Move your app forward with the Associated Press API
+  description: weather
   version: "0.0.1"
   termsOfService: "weather"
 # the domain of the service
@@ -16,19 +16,32 @@ basePath: /v0
 produces:
   - application/json
 paths:
-  /geo_api:
+  /station_list:
     get:
-      operationId: "geo_api"
-      summary: Search GEO information by address
+      operationId: "station_list"
+      summary: Search stations
       description: |
-        Search geo infomration by address. Optionally refine search by category, source, data range, etc.
+        Search stations information by country or geo information.
       parameters:
-        - name: address
+        - name: country
           in: query
-          description: The keyword or keywords to search for
-          required: true
+          description: |
+            The country to search for. For example: "US"
+          required: false
           type: string
           format: String
+        - name: lat
+          in: query
+          description: The latitude of geo information
+          required: false
+          type: integer
+          format: int32
+        - name: lng
+          in: query
+          description: The longitude of geo information
+          required: false
+          type: integer
+          format: int32
       responses:
         200:
           description: The pandas.DataFrame of news
@@ -38,19 +51,21 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /weather_station:
+  /weather_stations:
     get:
-      operationId: "weather_station"
-      summary: Search weather data by station Id
+      operationId: "weather_stations"
+      summary: Search weather data by stations Id
       description: |
         Search weather data by station Id and date range.
       parameters:
-        - name: station
+        - name: stations
           in: query
-          description: station id to search for
+          description: stations id to search for
           required: true
-          type: string
-          format: String
+          type: array
+          items: {
+              type: string
+            }
         - name: start_dt
           in: query
           description: The optional start date for the query
@@ -65,11 +80,21 @@ paths:
           format: String
         - name: fields
           in: query
-          description: The optional end date for the query
+          description: The optional, fields for the query
           type: array
           items: {
               type: string
             }
+        - name: sample_rate
+          in: query
+          description: |
+            The optional,
+            'r': raw data of weather (default),
+            'd': daily Summary of weather,
+            'w': weekly summary of weather, 
+            'm': monthly summary of weather
+          type: string
+          format: string
       responses:
         200:
           description: The pandas.DataFrame of weather data
@@ -79,17 +104,18 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /weather_geo:
+  /weather_country:
     get:
-      operationId: "weather_geo"
-      summary: Search GEO information by address
+      operationId: "weather_country"
+      summary: Search weather by country
       description: |
-        Search news by keywords. Optionally refine search by category, source, data range, etc.
+        Search weather data by keywords. Optionally refine search by category, source, data range, etc.
       parameters:
-        - name: station
+        - name: country
           in: query
-          description: station id to search for
-          required: true
+          description: |
+            The country to search for. For example: "US"
+          required: false
           type: string
           format: String
         - name: start_dt
@@ -104,6 +130,16 @@ paths:
           required: true
           type: string
           format: String
+        - name: sample_rate
+          in: query
+          description: |
+            The optional,
+            'r': raw data of weather (default),
+            'd': daily Summary of weather,
+            'w': weekly summary of weather, 
+            'm': monthly summary of weather          
+          type: string
+          format: string          
         - name: fields
           in: query
           description: The optional end date for the query
@@ -146,4 +182,3 @@ definitions:
       data:
         items:
           $ref: '#/definitions/DataFrame'
-  
