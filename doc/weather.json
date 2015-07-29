@@ -1,0 +1,117 @@
+{ 
+  "members" : [ 
+      { 
+        "class_method" : true,
+        "description" : "Search weather stations information by country or geo information.\n",
+        "name" : "station_list",
+        "params" : [ 
+            { 
+              "default" : "",
+              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt\n (required)",
+              "name" : "country",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The latitude of geo information (required)",
+              "name" : "lat",
+              "type" : [ "int" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The longitude of geo information (required)",
+              "name" : "lng",
+              "type" : [ "int" ]
+            }
+          ],
+        "ret" : { 
+            "description" : "Search stations",
+            "type" : "DataFrame"
+          }
+      },
+      { 
+        "class_method" : true,
+        "description" : "Search weather data by country.\n",
+        "name" : "weather_country",
+        "params" : [ 
+            { 
+              "default" : "",
+              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt\n (required)",
+              "name" : "country",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional start date for the query (required)",
+              "name" : "start_dt",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional end date for the query (required)",
+              "name" : "end_dt",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional,\n&#39;d&#39;: daily summary of weather (default),\n&#39;w&#39;: weekly summary of weather, \n&#39;m&#39;: monthly summary of weather          \n (required)",
+              "name" : "sample_rate",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional end date for the query (required)",
+              "name" : "fields",
+              "type" : [ "list[str]" ]
+            }
+          ],
+        "ret" : { 
+            "description" : "Search weather by country",
+            "type" : "Response"
+          }
+      },
+      { 
+        "class_method" : true,
+        "description" : "Search weather data by station Id and date range.\n",
+        "name" : "weather_stations",
+        "params" : [ 
+            { 
+              "default" : "",
+              "description" : "stations id to search for (required)",
+              "name" : "stations",
+              "type" : [ "list[str]" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional start date for the query (required)",
+              "name" : "start_dt",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional end date for the query (required)",
+              "name" : "end_dt",
+              "type" : [ "str" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional, fields for the query (required)",
+              "name" : "fields",
+              "type" : [ "list[str]" ]
+            },
+            { 
+              "default" : "",
+              "description" : "The optional,\n&#39;d&#39;: daily summary of weather (default),\n&#39;w&#39;: weekly summary of weather, \n&#39;m&#39;: monthly summary of weather\n (required)",
+              "name" : "sample_rate",
+              "type" : [ "str" ]
+            }
+          ],
+        "ret" : { 
+            "description" : "Search weather data by stations Id",
+            "type" : "Response"
+          }
+      }
+    ],
+  "name" : "weather",
+  "prefix" : "kyper.data"
+}
