@@ -37,4 +37,4 @@ ags="$@ generate -t template -i ${APP_DIR}/conf/weather.yml -l com.kyper.MyPytho
 #/c/Java/jdk1.7.0_80/bin/java $JAVA_OPTS -jar $executable $ags       
 java $JAVA_OPTS -jar $executable $ags       
 
-jsonlint -o doc/weather.json -f output/SwaggerPetstore-python/SwaggerPetstore/apis/default_api.json 
+jsonlint --sort preserve -o docs/weather_doc.json -f output/SwaggerPetstore-python/SwaggerPetstore/apis/default_api.json 
