@@ -12,6 +12,7 @@ apt-get install -y gradle
 
 apt-get install -y python3-pip
 apt-get install -y python-pip
+apt-get install -y python-demjson
 
 pip2 install cqlsh
 pip3 install cqlsh
