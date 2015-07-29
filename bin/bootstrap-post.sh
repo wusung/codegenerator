@@ -12,11 +12,13 @@ apt-get install -y gradle
 
 apt-get install -y python3-pip
 apt-get install -y python-pip
-apt-get install -y python-demjson
+apt-get install -y npm
 
 pip2 install cqlsh
 pip3 install cqlsh
 pip install docker-compose
+git clone https://github.com/dmeranda/demjson.git
+cd demjson; python setup.py install
 
 mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant`,dmode=755,fmode=744 vagrant /vagrant
 
