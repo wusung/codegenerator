@@ -68,7 +68,7 @@
           ],
         "class_method" : true,
         "ret" : { 
-            "type" : "Response",
+            "type" : "DataFrame",
             "description" : "Search weather by country"
           }
       },
@@ -109,7 +109,7 @@
           ],
         "class_method" : true,
         "ret" : { 
-            "type" : "Response",
+            "type" : "DataFrame",
             "description" : "Search weather data by stations Id"
           }
       }

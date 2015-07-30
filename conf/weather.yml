@@ -98,7 +98,7 @@ paths:
         200:
           description: The pandas.DataFrame of weather data
           schema:
-            $ref: '#/definitions/Response'
+            $ref: '#/definitions/DataFrame'
         default:
           description: Error
           schema:
@@ -149,7 +149,7 @@ paths:
         200:
           description: The pandas.DataFrame of news
           schema:
-            $ref: '#/definitions/Response'
+            $ref: '#/definitions/DataFrame'
         default:
           description: Error
           schema:
