@@ -19,7 +19,7 @@ paths:
   /station_list:
     get:
       operationId: "station_list"
-      summary: Search stations
+      summary: Search weather stations information by country or geo information
       description: |
         Search weather stations information by country or geo information.
       parameters:
@@ -81,17 +81,19 @@ paths:
         - name: fields
           in: query
           description: The optional, fields for the query
+          defaultValue: 123
           type: array
           items: {
               type: string
             }
-        - name: sample_rate
+        - name: freq
           in: query
           description: |
             The optional,
             'd': daily summary of weather (default),
             'w': weekly summary of weather, 
             'm': monthly summary of weather
+          defaultValue: d
           type: string
           format: string
       responses:
@@ -103,57 +105,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /weather_country:
-    get:
-      operationId: "weather_country"
-      summary: Search weather by country
-      description: |
-        Search weather data by country.
-      parameters:
-        - name: country
-          in: query
-          description: |
-            The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt
-          required: false
-          type: string
-          format: String
-        - name: start_dt
-          in: query
-          description: The optional start date for the query
-          required: true
-          type: string
-          format: String
-        - name: end_dt
-          in: query
-          description: The optional end date for the query
-          required: true
-          type: string
-          format: String
-        - name: sample_rate
-          in: query
-          description: |
-            The optional,
-            'd': daily summary of weather (default),
-            'w': weekly summary of weather, 
-            'm': monthly summary of weather          
-          type: string
-          format: string          
-        - name: fields
-          in: query
-          description: The optional end date for the query
-          type: array
-          items: {
-              type: string
-            }
-      responses:
-        200:
-          description: The pandas.DataFrame of news
-          schema:
-            $ref: '#/definitions/DataFrame'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Error'            
 definitions:
   Error:
     properties:
