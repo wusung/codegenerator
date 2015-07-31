@@ -1,24 +1,24 @@
-{ 
+{
   "name" : "weather",
   "prefix" : "kyper.data",
-  "members" : [ 
-      { 
+  "members" : [
+      {
         "name" : "station_list",
-        "description" : "Search weather stations information by country or geo information.\n",
-        "params" : [ 
-            { 
+        "description" : "Search weather stations information by country or geo information.",
+        "params" : [
+            {
               "name" : "country",
               "type" : [ "str" ],
               "default" : "",
-              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt\n (required)"
+              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt (required)"
             },
-            { 
+            {
               "name" : "lat",
               "type" : [ "int" ],
               "default" : "",
               "description" : "The latitude of geo information (required)"
             },
-            { 
+            {
               "name" : "lng",
               "type" : [ "int" ],
               "default" : "",
@@ -26,89 +26,48 @@
             }
           ],
         "class_method" : true,
-        "ret" : { 
+        "ret" : {
             "type" : "DataFrame",
-            "description" : "Search stations"
+            "description" : "Search weather stations information by country or geo information"
           }
       },
-      { 
-        "name" : "weather_country",
-        "description" : "Search weather data by country.\n",
-        "params" : [ 
-            { 
-              "name" : "country",
-              "type" : [ "str" ],
-              "default" : "",
-              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt\n (required)"
-            },
-            { 
-              "name" : "start_dt",
-              "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional start date for the query (required)"
-            },
-            { 
-              "name" : "end_dt",
-              "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional end date for the query (required)"
-            },
-            { 
-              "name" : "sample_rate",
-              "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional,\n&#39;d&#39;: daily summary of weather (default),\n&#39;w&#39;: weekly summary of weather, \n&#39;m&#39;: monthly summary of weather          \n (required)"
-            },
-            { 
-              "name" : "fields",
-              "type" : [ "list[str]" ],
-              "default" : "",
-              "description" : "The optional end date for the query (required)"
-            }
-          ],
-        "class_method" : true,
-        "ret" : { 
-            "type" : "DataFrame",
-            "description" : "Search weather by country"
-          }
-      },
-      { 
+      {
         "name" : "weather_stations",
-        "description" : "Search weather data by station Id and date range.\n",
-        "params" : [ 
-            { 
+        "description" : "Search weather data by station Id and date range.",
+        "params" : [
+            {
               "name" : "stations",
               "type" : [ "list[str]" ],
               "default" : "",
               "description" : "stations id to search for (required)"
             },
-            { 
+            {
               "name" : "start_dt",
               "type" : [ "str" ],
               "default" : "",
               "description" : "The optional start date for the query (required)"
             },
-            { 
+            {
               "name" : "end_dt",
               "type" : [ "str" ],
               "default" : "",
               "description" : "The optional end date for the query (required)"
             },
-            { 
+            {
               "name" : "fields",
               "type" : [ "list[str]" ],
-              "default" : "",
+              "default" : "['date', 'time', 'speed', 'gus', 'vsb', 'temperature', 'dewp', 'slp', 'stp', 'pcpxx', 'sd']",
               "description" : "The optional, fields for the query (required)"
             },
-            { 
-              "name" : "sample_rate",
+            {
+              "name" : "freq",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional,\n&#39;d&#39;: daily summary of weather (default),\n&#39;w&#39;: weekly summary of weather, \n&#39;m&#39;: monthly summary of weather\n (required)"
+              "default" : "d",
+              "description" : "The optional,&#39;d&#39;: daily summary of weather (default),&#39;w&#39;: weekly summary of weather, &#39;m&#39;: monthly summary of weather (required)"
             }
           ],
         "class_method" : true,
-        "ret" : { 
+        "ret" : {
             "type" : "DataFrame",
             "description" : "Search weather data by stations Id"
           }
