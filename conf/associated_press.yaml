@@ -1,0 +1,71 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Associated Press API
+  description: Move your app forward with the Associated Press API
+  version: "0.0.1"
+# the domain of the service
+host: ap.kyper.co
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v0
+produces:
+  - application/json
+paths:
+  /search_news:
+    get:
+      operationId: "search_news"
+      summary: A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', 'relevance', 'source', and 'subcategories'
+      description: |
+        Search news by keywords. Optionally refine search by category, source, data range, etc.
+      parameters:
+        - name: search_term
+          in: query
+          description: The keyword or keywords to search for
+          required: true
+          type: string
+        - name: start_dt
+          in: query
+          description: The optional start date for the query
+          type: string
+        - name: end_dt
+          in: query
+          description: The optional end date for the query
+          type: string
+        - name: limit
+          in: query
+          description: The maximum number of articles to return
+          type: integer
+          format: int32
+          default: 1000
+      responses:
+        200:
+          description: The pandas.DataFrame of news
+          schema:
+            $ref: '#/definitions/DataFrame'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+  DataFrame:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

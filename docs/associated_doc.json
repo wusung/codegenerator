@@ -1,0 +1,39 @@
+{ 
+  "name" : "Move your app forward with the Associated Press API",
+  "prefix" : "kyper.data",
+  "members" : [ { 
+        "name" : "search_news",
+        "description" : "Search news by keywords. Optionally refine search by category, source, data range, etc.",
+        "params" : [ 
+            { 
+              "name" : "search_term",
+              "type" : [ "str" ],
+              "default" : "",
+              "description" : "The keyword or keywords to search for (required)"
+            },
+            { 
+              "name" : "start_dt",
+              "type" : [ "str" ],
+              "default" : "",
+              "description" : "The optional start date for the query (required)"
+            },
+            { 
+              "name" : "end_dt",
+              "type" : [ "str" ],
+              "default" : "",
+              "description" : "The optional end date for the query (required)"
+            },
+            { 
+              "name" : "limit",
+              "type" : [ "int" ],
+              "default" : "",
+              "description" : "The maximum number of articles to return (required)"
+            }
+          ],
+        "class_method" : true,
+        "ret" : { 
+            "type" : "DataFrame",
+            "description" : "A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', 'relevance', 'source', and 'subcategories'"
+          }
+      } ]
+}
