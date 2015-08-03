@@ -7,11 +7,11 @@
     	"name":"{{nickname}}",
     	"description":"{{notes}}",
     	"params": [{{#allParams}} 
-			{"name":"{{paramName}}", "type": ["{{dataType}}"], "default":"{{#defaultValue}}{{/defaultValue}}" , "description":"{{description}} {{^optional}}(required){{/optional}}{{#optional}}(optional){{/optional}}" }, {{newline}} {{/allParams}}
+			{"name":"{{paramName}}", "type": ["{{dataType}}"], "default":"{{#defaultValue}}{{/defaultValue}}" , "description":"{{description}} {{^optional}}(required){{/optional}}{{#optional}}(optional){{/optional}}" }{{#hasMore}}, {{/hasMore}} {{newline}} {{/allParams}}
 		],
     	"class_method": true,
-    	"ret": {"type":"{{returnType}}", "description":"{{summary}}"},
-        },{{/operation}}
+    	"ret": {"type":"{{returnType}}", "description":"{{summary}}"}
+        }{{#hasMore}}, {{/hasMore}}{{/operation}}
     {{/operations}}
 	]
 }
