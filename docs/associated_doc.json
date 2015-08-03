@@ -15,19 +15,19 @@
               "name" : "start_dt",
               "type" : [ "str" ],
               "default" : "",
-              "description" : "The optional start date for the query (required)"
+              "description" : "The optional start date for the query (optional)"
             },
             { 
               "name" : "end_dt",
               "type" : [ "str" ],
               "default" : "",
-              "description" : "The optional end date for the query (required)"
+              "description" : "The optional end date for the query (optional)"
             },
             { 
               "name" : "limit",
               "type" : [ "int" ],
-              "default" : "",
-              "description" : "The maximum number of articles to return (required)"
+              "default" : "1000",
+              "description" : "The maximum number of articles to return (optional)"
             }
           ],
         "class_method" : true,
