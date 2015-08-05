@@ -66,7 +66,7 @@
             { 
               "name" : "fields",
               "type" : [ "list[str]" ],
-              "default" : "['date', 'time', 'speed', 'gus', 'vsb', 'temperature', 'dewp', 'slp', 'stp', 'pcpxx', 'sd']",
+              "default" : "['date', 'speed', 'gus', 'vsb', 'temperature', 'dewp', 'slp', 'stp', 'pcpxx', 'sd']",
               "description" : "The optional, fields for the query (required)"
             },
             { 
