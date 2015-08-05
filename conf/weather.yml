@@ -78,7 +78,6 @@ paths:
         - name: fields
           in: query
           description: The optional, fields for the query
-          defaultValue: 123
           type: array
           items: {
               type: string
@@ -90,8 +89,14 @@ paths:
             'd': daily summary of weather (default),
             'w': weekly summary of weather, 
             'm': monthly summary of weather
-          defaultValue: d
+          default: d
           type: string
+        - name: limit
+          in: query
+          description: Limit of returning records. default 10 (optional)
+          default: 10
+          type: integer
+          format: int32
       responses:
         200:
           description: The pandas.DataFrame of weather data
@@ -111,7 +116,7 @@ paths:
         200:
           description: The pandas.DataFrame of weather data
           schema:
-            $ref: '#/definitions/pandas.DataFrame'
+            $ref: '#/definitions/DataFrame'
         default:
           description: Error
           schema:
@@ -127,7 +132,7 @@ definitions:
         type: string
       fields:
         type: string
-  pandas.DataFrame:
+  DataFrame:
     properties:
       code:
         type: integer
@@ -136,10 +141,3 @@ definitions:
         type: string
       fields:
         type: string
-  Response:
-    properties:
-      code:
-        type: string
-      data:
-        items:
-          $ref: '#/definitions/DataFrame'

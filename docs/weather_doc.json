@@ -8,31 +8,31 @@
         "params" : [  ],
         "class_method" : true,
         "ret" : { 
-            "type" : "PandasDataFrame",
+            "type" : "DataFrame",
             "description" : "List all fields provided by weather data API."
           }
       },
       { 
         "name" : "station_list",
-        "description" : "Search weather stations information by country or geo information.",
+        "description" : "Search weather stations information by country or geo information.\n",
         "params" : [ 
             { 
               "name" : "country",
               "type" : [ "str" ],
               "default" : "",
-              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt (required)"
+              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt (optional)"
             },
             { 
               "name" : "lat",
               "type" : [ "int" ],
               "default" : "",
-              "description" : "The latitude of geo information (required)"
+              "description" : "The latitude of geo information (optional)"
             },
             { 
               "name" : "lng",
               "type" : [ "int" ],
               "default" : "",
-              "description" : "The longitude of geo information (required)"
+              "description" : "The longitude of geo information (optional)"
             }
           ],
         "class_method" : true,
@@ -67,13 +67,19 @@
               "name" : "fields",
               "type" : [ "list[str]" ],
               "default" : "['date', 'speed', 'gus', 'vsb', 'temperature', 'dewp', 'slp', 'stp', 'pcpxx', 'sd']",
-              "description" : "The optional, fields for the query (required)"
+              "description" : "The optional, fields for the query (optional)"
             },
             { 
               "name" : "freq",
               "type" : [ "str" ],
               "default" : "d",
               "description" : "The optional,'d': daily summary of weather (default),'w': weekly summary of weather, 'm': monthly summary of weather (required)"
+            },
+            { 
+              "name" : "limit",
+              "type" : [ "int" ],
+              "default" : "",
+              "description" : "Limit of returning records. default 10 (optional) (optional)"
             }
           ],
         "class_method" : true,
