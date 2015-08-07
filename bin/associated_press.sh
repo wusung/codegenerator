@@ -17,9 +17,6 @@ if [ ! -d "${APP_DIR}" ]; then
   APP_DIR=`cd "${APP_DIR}"; pwd`
 fi
 
-echo $APP_DIR=./
-#executable="${APP_DIR}/lib/codegenerator-1.0-SNAPSHOT.jar"
-#executable="${APP_DIR}/build/libs/codegenerator-1.0-SNAPSHOT.jar"
 executable="./build/libs/codegenerator-1.0-SNAPSHOT.jar"
 
 if [ ! -f "$executable" ]
@@ -37,6 +34,7 @@ ags="$@ generate -t template -i ${APP_DIR}/conf/associated_press.yaml -l com.kyp
 #/c/Java/jdk1.7.0_80/bin/java $JAVA_OPTS -jar $executable $ags       
 java $JAVA_OPTS -jar $executable $ags       
 
-jsonlint --sort preserve -o /tmp/associated_doc.json -f output/SwaggerPetstore-python/SwaggerPetstore/apis/default_api.json 
-sed 's/\\n//g' /tmp/associated_doc.json > /tmp/associated_doc_1.json
-sed "s/&#39;/'/g" /tmp/associated_doc_1.json > docs/associated_doc.json
+jsonlint --sort preserve -o /tmp/1.json -f output/SwaggerPetstore-python/SwaggerPetstore/apis/default_api.json
+sed 's/\\n//g' /tmp/1.json > /tmp/2.json
+sed "s/\"DataFrame\"/\"pandas.DataFrame\"/g" /tmp/2.json > /tmp/3.json
+sed "s/&#39;/'/g" /tmp/3.json > docs/associated_doc.json

@@ -1,39 +1,36 @@
 { 
-  "name" : "Move your app forward with the Associated Press API",
+  "name" : "The Associated Press, the world's oldest and largest newsgathering organization, has an API that enables developers to build applications incorporating data from the Associated Press's expansive database of content. The platform includes tools that allow developers to target the exact content users want.",
   "prefix" : "kyper.data",
   "members" : [ { 
         "name" : "search_news",
-        "description" : "Search news by keywords. Optionally refine search by category, source, data range, etc.",
+        "description" : "Search news by keywords. Optionally refine search by data range, etc.",
         "params" : [ 
             { 
               "name" : "search_term",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The keyword or keywords to search for (required)"
+              "description" : "The keyword or keywords to search for"
             },
             { 
               "name" : "start_dt",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional start date for the query (optional)"
+              "description" : "The optional start date for the query"
             },
             { 
               "name" : "end_dt",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional end date for the query (optional)"
+              "description" : "The optional end date for the query"
             },
             { 
               "name" : "limit",
               "type" : [ "int" ],
-              "default" : "1000",
-              "description" : "The maximum number of articles to return (optional)"
+              "default" : 1000,
+              "description" : "The maximum number of articles to return"
             }
           ],
         "class_method" : true,
         "ret" : { 
-            "type" : "DataFrame",
-            "description" : "A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', 'relevance', 'source', and 'subcategories'"
+            "type" : "pandas.DataFrame",
+            "description" : "A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', and 'subcategories'"
           }
       } ]
 }

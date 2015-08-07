@@ -3,7 +3,7 @@
 swagger: '2.0'
 info:
   title: Associated Press API
-  description: Move your app forward with the Associated Press API
+  description: The Associated Press, the world's oldest and largest newsgathering organization, has an API that enables developers to build applications incorporating data from the Associated Press's expansive database of content. The platform includes tools that allow developers to target the exact content users want.
   version: "0.0.1"
 # the domain of the service
 host: ap.kyper.co
@@ -18,9 +18,9 @@ paths:
   /search_news:
     get:
       operationId: "search_news"
-      summary: A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', 'relevance', 'source', and 'subcategories'
+      summary: A DataFrame of matching articles with the columns 'body', 'categories', 'headline', 'link', 'news_id', 'preview', 'published', and 'subcategories'
       description: |
-        Search news by keywords. Optionally refine search by category, source, data range, etc.
+        Search news by keywords. Optionally refine search by data range, etc.
       parameters:
         - name: search_term
           in: query
