@@ -21,7 +21,7 @@ paths:
       operationId: "station_list"
       summary: Search weather stations information by country or geo information
       description: |
-        Search weather stations information by country or geo information. Country or lat/lng are either of the two.
+        Search weather stations information by country or coordinates. Country and coordinates(lat/lng) are either of the two, but not both.
       parameters:
         - name: country
           in: query
@@ -78,6 +78,7 @@ paths:
         - name: fields
           in: query
           description: The optional, fields for the query
+          default: 
           type: array
           items: {
               type: string

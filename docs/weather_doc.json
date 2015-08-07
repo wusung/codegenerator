@@ -14,7 +14,7 @@
       },
       { 
         "name" : "station_list",
-        "description" : "Search weather stations information by country or geo information. Country or lat/lng are either of the two.",
+        "description" : "Search weather stations information by country or coordinates. Country and coordinates(lat/lng) are either of the two, but not both.",
         "params" : [ 
             { 
               "name" : "country",
