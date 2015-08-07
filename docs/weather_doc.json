@@ -8,36 +8,36 @@
         "params" : [  ],
         "class_method" : true,
         "ret" : { 
-            "type" : "DataFrame",
+            "type" : "pandas.DataFrame",
             "description" : "List all fields provided by weather data API."
           }
       },
       { 
         "name" : "station_list",
-        "description" : "Search weather stations information by country or geo information.\n",
+        "description" : "Search weather stations information by country or geo information. Country or lat/lng are either of the two.",
         "params" : [ 
             { 
               "name" : "country",
               "type" : [ "str" ],
               "default" : "",
-              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt (optional)"
+              "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt"
             },
             { 
               "name" : "lat",
               "type" : [ "int" ],
               "default" : "",
-              "description" : "The latitude of geo information (optional)"
+              "description" : "The latitude of geo information"
             },
             { 
               "name" : "lng",
               "type" : [ "int" ],
               "default" : "",
-              "description" : "The longitude of geo information (optional)"
+              "description" : "The longitude of geo information"
             }
           ],
         "class_method" : true,
         "ret" : { 
-            "type" : "DataFrame",
+            "type" : "pandas.DataFrame",
             "description" : "Search weather stations information by country or geo information"
           }
       },
@@ -48,43 +48,40 @@
             { 
               "name" : "stations",
               "type" : [ "list[str]" ],
-              "default" : "",
-              "description" : "stations id to search for (required)"
+              "description" : "stations id to search for"
             },
             { 
               "name" : "start_date",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional start date for the query (required)"
+              "description" : "The optional start date for the query"
             },
             { 
               "name" : "end_date",
               "type" : [ "str" ],
-              "default" : "",
-              "description" : "The optional end date for the query (required)"
+              "description" : "The optional end date for the query"
             },
             { 
               "name" : "fields",
               "type" : [ "list[str]" ],
               "default" : "['date', 'speed', 'gus', 'vsb', 'temperature', 'dewp', 'slp', 'stp', 'pcpxx', 'sd']",
-              "description" : "The optional, fields for the query (optional)"
+              "description" : "The optional, fields for the query"
             },
             { 
               "name" : "freq",
               "type" : [ "str" ],
               "default" : "d",
-              "description" : "The optional,'d': daily summary of weather (default),'w': weekly summary of weather, 'm': monthly summary of weather (required)"
+              "description" : "The optional,'d': daily summary of weather,'w': weekly summary of weather, 'm': monthly summary of weather"
             },
             { 
               "name" : "limit",
               "type" : [ "int" ],
-              "default" : "",
-              "description" : "Limit of returning records. default 10 (optional) (optional)"
+              "default" : "10",
+              "description" : "Limit of returning records."
             }
           ],
         "class_method" : true,
         "ret" : { 
-            "type" : "DataFrame",
+            "type" : "pandas.DataFrame",
             "description" : "Search weather data by stations Id"
           }
       }

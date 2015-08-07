@@ -21,7 +21,7 @@ paths:
       operationId: "station_list"
       summary: Search weather stations information by country or geo information
       description: |
-        Search weather stations information by country or geo information.
+        Search weather stations information by country or geo information. Country or lat/lng are either of the two.
       parameters:
         - name: country
           in: query
@@ -86,14 +86,14 @@ paths:
           in: query
           description: |
             The optional,
-            'd': daily summary of weather (default),
+            'd': daily summary of weather,
             'w': weekly summary of weather, 
             'm': monthly summary of weather
           default: d
           type: string
         - name: limit
           in: query
-          description: Limit of returning records. default 10 (optional)
+          description: Limit of returning records.
           default: 10
           type: integer
           format: int32

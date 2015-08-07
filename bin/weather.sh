@@ -32,9 +32,12 @@ LIB_PATH=${APP_DIR}/build/libs/*:../build/libs/*:${APP_DIR}/libs/*
 
 # if you've executed sbt assembly previously it will use that instead.
 export JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=256M -Xmx1024M -DloggerPath=conf/log4j.properties -cp ${LIB_PATH}"
-ags="$@ generate -t template -i ${APP_DIR}/conf/weather.yml -l com.kyper.MyPythonCodeGenerator -o ${APP_DIR}/output"
+ags="$@ generate -t template -i ${APP_DIR}/conf/weather.yaml -l com.kyper.MyPythonCodeGenerator -o ${APP_DIR}/output"
 
 #/c/Java/jdk1.7.0_80/bin/java $JAVA_OPTS -jar $executable $ags       
 java $JAVA_OPTS -jar $executable $ags       
 
 jsonlint --sort preserve -o docs/weather_doc.json -f output/SwaggerPetstore-python/SwaggerPetstore/apis/default_api.json 
+sed 's/\\n//g' docs/weather_doc.json > /tmp/xxxxxx.json
+sed "s/\"DataFrame\"/\"pandas.DataFrame\"/g" /tmp/xxxxxx.json > /tmp/abcdef.json
+sed "s/&#39;/'/g" /tmp/abcdef.json > docs/weather_doc.json

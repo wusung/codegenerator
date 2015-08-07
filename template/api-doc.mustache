@@ -7,7 +7,7 @@
     	"name":"{{nickname}}",
     	"description":"{{notes}}",
     	"params": [{{#allParams}} 
-			{"name":"{{paramName}}", "type": ["{{dataType}}"], "default":"{{#defaultValue}}{{/defaultValue}}" , "description":"{{description}} {{#required}}(required){{/required}}{{^required}}(optional){{/required}}" }{{#hasMore}}, {{/hasMore}} {{newline}} {{/allParams}}
+			{"name":"{{paramName}}", "type": ["{{dataType}}"], {{^required}}"default":"{{#defaultValue}}{{/defaultValue}}",{{/required}} "description":"{{description}}" }{{#hasMore}}, {{/hasMore}} {{newline}} {{/allParams}}
 		],
     	"class_method": true,
     	"ret": {"type":"{{returnType}}", "description":"{{summary}}"}
@@ -15,4 +15,3 @@
     {{/operations}}
 	]
 }
-
