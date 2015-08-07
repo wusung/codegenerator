@@ -19,19 +19,16 @@
             { 
               "name" : "country",
               "type" : [ "str" ],
-              "default" : "",
               "description" : "The country to search for. For example: US. Refer to ftp://ftp.ncdc.noaa.gov/pub/data/noaa/country-list.txt"
             },
             { 
               "name" : "lat",
               "type" : [ "int" ],
-              "default" : "",
               "description" : "The latitude of geo information"
             },
             { 
               "name" : "lng",
               "type" : [ "int" ],
-              "default" : "",
               "description" : "The longitude of geo information"
             }
           ],
