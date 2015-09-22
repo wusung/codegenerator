@@ -1,4 +1,4 @@
-# common-utils
+# Code Generator under swagger spec 2.0
 
 Prerequest
  - apt-get install -y docker
